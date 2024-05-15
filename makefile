@@ -121,3 +121,12 @@ dev-describe-sales:
 tidy:
 	go mod tidy
 	go mod vendor
+
+# ==============================================================================
+# Metrics and Tracing
+
+metrics-view:
+	expvarmon -ports="localhost:3010" -vars="build,requests,goroutines,errors,panics,mem:memstats.HeapAlloc,mem:memstats.HeapSys,mem:memstats.Sys"
+
+statsviz:
+	open -a "Google Chrome" http://localhost:3010/debug/statsviz
