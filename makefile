@@ -10,7 +10,9 @@ run-help:
 
 curl-test:
 	curl -il -X POST http://localhost:3000/test \
-	-d {value: "HELLO"}
+	-d '{ \
+		"value": "HELLO", \
+	}'
 
 # ==============================================================================
 # Define dependencies
