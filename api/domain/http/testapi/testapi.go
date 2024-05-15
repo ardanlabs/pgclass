@@ -1,24 +1,23 @@
 package testapi
 
 import (
+	"context"
 	"io"
 	"net/http"
 
 	"github.com/ardanlabs/service/app/domain/testapp"
 	"github.com/ardanlabs/service/foundation/logger"
+	"github.com/ardanlabs/service/foundation/web"
 )
 
 type testapi struct {
 	Log *logger.Logger
 }
 
-func (api *testapi) testPostAPI(w http.ResponseWriter, r *http.Request) {
-	ctx := r.Context()
-
+func (api *testapi) newTestPostAPI(ctx context.Context, r *http.Request) (web.Encoder, error) {
 	data, err := io.ReadAll(r.Body)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
+		return nil, err
 	}
 	defer r.Body.Close()
 
@@ -26,19 +25,12 @@ func (api *testapi) testPostAPI(w http.ResponseWriter, r *http.Request) {
 
 	var in testapp.MessageIn
 	if err := in.Decode(data); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
+		return nil, err
 	}
 
 	api.Log.Info(ctx, "READALL", "IN", in)
 
 	out := testapp.TestPost(in)
 
-	outBytes, err := out.Encode()
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
-
-	w.Write(outBytes)
+	return out, nil
 }

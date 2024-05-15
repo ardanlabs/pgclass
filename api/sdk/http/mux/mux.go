@@ -3,22 +3,27 @@
 package mux
 
 import (
-	"net/http"
+	"context"
 
 	"github.com/ardanlabs/service/foundation/logger"
+	"github.com/ardanlabs/service/foundation/web"
 )
 
 // RouteAdder defines behavior that sets the routes to bind for an instance
 // of the service.
 type RouteAdder interface {
-	Add(*logger.Logger, *http.ServeMux)
+	Add(*logger.Logger, *web.App)
 }
 
 // WebAPI constructs a http.Handler with all application routes bound.
-func WebAPI(log *logger.Logger, routeAdder RouteAdder) *http.ServeMux {
-	mux := http.NewServeMux()
+func WebAPI(log *logger.Logger, routeAdder RouteAdder) *web.App {
+	l := func(ctx context.Context, format string, args ...any) {
+		log.Info(ctx, format, args)
+	}
 
-	routeAdder.Add(log, mux)
+	app := web.NewApp(l)
 
-	return mux
+	routeAdder.Add(log, app)
+
+	return app
 }

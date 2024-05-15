@@ -1,10 +1,9 @@
 package all
 
 import (
-	"net/http"
-
 	"github.com/ardanlabs/service/api/domain/http/testapi"
 	"github.com/ardanlabs/service/foundation/logger"
+	"github.com/ardanlabs/service/foundation/web"
 )
 
 // Routes constructs the add value which provides the implementation of
@@ -16,6 +15,6 @@ func Routes() add {
 type add struct{}
 
 // Add implements the RouterAdder interface.
-func (add) Add(log *logger.Logger, mux *http.ServeMux) {
-	testapi.Routes(log, mux)
+func (add) Add(log *logger.Logger, app *web.App) {
+	testapi.Routes(log, app)
 }
