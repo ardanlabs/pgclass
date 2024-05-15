@@ -3,6 +3,8 @@ package web
 import (
 	"context"
 	"net/http"
+
+	"github.com/google/uuid"
 )
 
 // Encoder represents data that can be encoded.
@@ -42,10 +44,7 @@ func (app *App) HandleFunc(pattern string, handler Handler, mw ...Middleware) {
 	handler = wrapMiddleware(app.mw, handler)
 
 	h := func(w http.ResponseWriter, r *http.Request) {
-
-		// WE CAN PUT CODE HERE
-
-		ctx := r.Context()
+		ctx := setTraceID(r.Context(), uuid.NewString())
 
 		resp, err := handler(ctx, r)
 		if err != nil {
