@@ -28,8 +28,26 @@ spec:
       - name: sales
         image: sales-image
 
+        ports:
+        - name: sales
+          containerPort: 3000
+        - name: sales-debug
+          containerPort: 3010
+
         env:
         - name: GOMAXPROCS
           valueFrom:
             resourceFieldRef:
               resource: limits.cpu
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: sales-service
+  namespace: sales-system
+
+spec:
+  selector:
+    app: sales

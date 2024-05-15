@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"github.com/ardanlabs/conf/v3"
-	"github.com/ardanlabs/service/api/http/api/debug"
+	"github.com/ardanlabs/service/api/sdk/http/debug"
 	"github.com/ardanlabs/service/foundation/logger"
 )
 
