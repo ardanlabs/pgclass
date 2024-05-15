@@ -3,25 +3,20 @@
 package mux
 
 import (
-	"encoding/json"
 	"net/http"
 )
 
+// RouteAdder defines behavior that sets the routes to bind for an instance
+// of the service.
+type RouteAdder interface {
+	Add(*http.ServeMux)
+}
+
 // WebAPI constructs a http.Handler with all application routes bound.
-func WebAPI() *http.ServeMux {
+func WebAPI(routeAdder RouteAdder) *http.ServeMux {
 	mux := http.NewServeMux()
 
-	h := func(w http.ResponseWriter, r *http.Request) {
-		status := struct {
-			Status string
-		}{
-			Status: "OK",
-		}
-
-		json.NewEncoder(w).Encode(status)
-	}
-
-	mux.HandleFunc("GET /test", h)
+	routeAdder.Add(mux)
 
 	return mux
 }
