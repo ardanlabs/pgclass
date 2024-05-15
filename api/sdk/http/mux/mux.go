@@ -5,6 +5,7 @@ package mux
 import (
 	"context"
 
+	"github.com/ardanlabs/service/api/sdk/http/mid"
 	"github.com/ardanlabs/service/foundation/logger"
 	"github.com/ardanlabs/service/foundation/web"
 )
@@ -21,7 +22,7 @@ func WebAPI(log *logger.Logger, routeAdder RouteAdder) *web.App {
 		log.Info(ctx, format, args)
 	}
 
-	app := web.NewApp(l)
+	app := web.NewApp(l, mid.Logger(log))
 
 	routeAdder.Add(log, app)
 

@@ -19,8 +19,6 @@ func (api *testapi) newTestPostAPI(ctx context.Context, r *http.Request) (web.En
 		return nil, err
 	}
 
-	api.Log.Info(ctx, "READALL", "IN", in)
-
 	out := testapp.TestPost(in)
 
 	return out, nil

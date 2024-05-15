@@ -24,18 +24,22 @@ type Logger func(context.Context, string, ...any)
 type App struct {
 	*http.ServeMux
 	log Logger
+	mw  []Middleware
 }
 
 // NewApp creates an App value that handle a set of routes for the application.
-func NewApp(log Logger) *App {
+func NewApp(log Logger, mw ...Middleware) *App {
 	return &App{
 		ServeMux: http.NewServeMux(),
 		log:      log,
+		mw:       mw,
 	}
 }
 
 // HandleFunc IS MY NEW HANDLER FUNC.
-func (app *App) HandleFunc(pattern string, handler Handler) {
+func (app *App) HandleFunc(pattern string, handler Handler, mw ...Middleware) {
+	handler = wrapMiddleware(mw, handler)
+	handler = wrapMiddleware(app.mw, handler)
 
 	h := func(w http.ResponseWriter, r *http.Request) {
 
