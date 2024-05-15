@@ -2,7 +2,6 @@ package testapi
 
 import (
 	"context"
-	"io"
 	"net/http"
 
 	"github.com/ardanlabs/service/app/domain/testapp"
@@ -15,16 +14,8 @@ type testapi struct {
 }
 
 func (api *testapi) newTestPostAPI(ctx context.Context, r *http.Request) (web.Encoder, error) {
-	data, err := io.ReadAll(r.Body)
-	if err != nil {
-		return nil, err
-	}
-	defer r.Body.Close()
-
-	api.Log.Info(ctx, "READALL", "Data", string(data))
-
 	var in testapp.MessageIn
-	if err := in.Decode(data); err != nil {
+	if err := web.Decode(r, &in); err != nil {
 		return nil, err
 	}
 
