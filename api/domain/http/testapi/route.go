@@ -1,8 +1,16 @@
 package testapi
 
-import "net/http"
+import (
+	"net/http"
+
+	"github.com/ardanlabs/service/foundation/logger"
+)
 
 // Routes adds specific routes for this group.
-func Routes(mux *http.ServeMux) {
-	mux.HandleFunc("POST /test", testPostAPI)
+func Routes(log *logger.Logger, mux *http.ServeMux) {
+	api := testapi{
+		Log: log,
+	}
+
+	mux.HandleFunc("POST /test", api.testPostAPI)
 }
