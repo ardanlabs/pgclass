@@ -22,7 +22,7 @@ func WebAPI(log *logger.Logger, routeAdder RouteAdder) *web.App {
 		log.Info(ctx, format, args)
 	}
 
-	app := web.NewApp(l, mid.Logger(log))
+	app := web.NewApp(l, mid.Logger(log), mid.Error(log))
 
 	routeAdder.Add(log, app)
 

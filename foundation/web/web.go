@@ -48,17 +48,15 @@ func (app *App) HandleFunc(pattern string, handler Handler, mw ...Middleware) {
 
 		resp, err := handler(ctx, r)
 		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			app.log(ctx, "WEB Handler ERRRO: %s", err)
+			if err := respondError(ctx, w, err); err != nil {
+				app.log(ctx, "web", "ERROR", err)
+			}
 			return
 		}
 
 		if err := respond(ctx, w, resp); err != nil {
-			app.log(ctx, "WEB ERROR: %s", err)
-			return
+			app.log(ctx, "web", "ERROR", err)
 		}
-
-		// WE CAN PUT CODE HERE
 	}
 
 	app.ServeMux.HandleFunc(pattern, h)
