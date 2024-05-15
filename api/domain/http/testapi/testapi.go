@@ -25,7 +25,10 @@ func (api *testapi) testPostAPI(w http.ResponseWriter, r *http.Request) {
 	api.Log.Info(ctx, "READALL", "Data", string(data))
 
 	var in testapp.MessageIn
-	in.Decode(data)
+	if err := in.Decode(data); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
 
 	api.Log.Info(ctx, "READALL", "IN", in)
 
