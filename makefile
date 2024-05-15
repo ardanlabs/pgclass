@@ -9,7 +9,8 @@ run-help:
 	go run api/cmd/services/sales/main.go --help
 
 curl-test:
-	curl -il -X GET http://localhost:3000/test
+	curl -il -X POST http://localhost:3000/test \
+	-d {value: "HELLO"}
 
 # ==============================================================================
 # Define dependencies
