@@ -5,14 +5,13 @@ import (
 	"net/http"
 
 	"github.com/ardanlabs/service/app/sdk/mid"
-	"github.com/ardanlabs/service/foundation/logger"
 	"github.com/ardanlabs/service/foundation/web"
 )
 
-// Errors executes the errors middleware functionality.
-func Error(log *logger.Logger) web.Middleware {
+// Panics executes the panic middleware functionality.
+func Panics() web.Middleware {
 	midFunc := func(ctx context.Context, r *http.Request, next mid.Handler) (mid.Encoder, error) {
-		return mid.Errors(ctx, log, next)
+		return mid.Panics(ctx, next)
 	}
 
 	return addMiddleware(midFunc)
