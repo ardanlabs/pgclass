@@ -43,12 +43,12 @@ func respond(ctx context.Context, w http.ResponseWriter, data Encoder) error {
 		statusCode = http.StatusInternalServerError
 	}
 
-	b, err := data.Encode()
+	b, contentType, err := data.Encode()
 	if err != nil {
 		return fmt.Errorf("respond: encode: %w", err)
 	}
 
-	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Content-Type", contentType)
 	w.WriteHeader(statusCode)
 
 	if _, err := w.Write(b); err != nil {

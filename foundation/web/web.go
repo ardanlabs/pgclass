@@ -7,9 +7,10 @@ import (
 	"github.com/google/uuid"
 )
 
-// Encoder represents data that can be encoded.
+// Encoder defines behavior that can encode a data model and provide
+// the content type for that encoding.
 type Encoder interface {
-	Encode() ([]byte, error)
+	Encode() (data []byte, contentType string, err error)
 }
 
 // Handler represents a function that handles a http request within our own

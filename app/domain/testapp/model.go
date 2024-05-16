@@ -16,6 +16,7 @@ type MessageOut struct {
 }
 
 // Encode implments the encoder interface.
-func (app MessageOut) Encode() ([]byte, error) {
-	return json.Marshal(app)
+func (app MessageOut) Encode() ([]byte, string, error) {
+	data, err := json.Marshal(app)
+	return data, "application/json", err
 }
