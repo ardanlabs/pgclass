@@ -123,6 +123,9 @@ dev-logs:
 
 # ------------------------------------------------------------------------------
 
+dev-logs-init:
+	kubectl logs --namespace=$(NAMESPACE) -l app=$(SALES_APP) -f --tail=100 -c init-migrate-seed
+
 dev-describe-deployment:
 	kubectl describe deployment --namespace=$(NAMESPACE) $(SALES_APP)
 
