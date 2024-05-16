@@ -2,7 +2,6 @@ package web
 
 import (
 	"context"
-	"fmt"
 	"net/http"
 
 	"github.com/google/uuid"
@@ -52,7 +51,6 @@ func (app *App) HandleFunc(pattern string, handler Handler, mw ...Middleware) {
 		if err != nil {
 			if err := respondError(ctx, w, err); err != nil {
 				app.log(ctx, "respondError", "ERROR", err)
-				app.log(ctx, fmt.Sprintf("respondError: %s", err))
 			}
 			return
 		}
