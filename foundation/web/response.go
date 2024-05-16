@@ -14,7 +14,7 @@ type httpStatus interface {
 func respondError(ctx context.Context, w http.ResponseWriter, err error) error {
 	data, ok := err.(Encoder)
 	if !ok {
-		return errors.New("error value does not implement the encoder interface")
+		return fmt.Errorf("error value does not implement the encoder interface: %T", err)
 	}
 
 	return respond(ctx, w, data)
