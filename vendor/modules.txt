@@ -11,6 +11,24 @@ github.com/ardanlabs/darwin/v3/drivers/generic
 github.com/arl/statsviz
 github.com/arl/statsviz/internal/plot
 github.com/arl/statsviz/internal/static
+# github.com/gabriel-vasile/mimetype v1.4.3
+## explicit; go 1.20
+github.com/gabriel-vasile/mimetype
+github.com/gabriel-vasile/mimetype/internal/charset
+github.com/gabriel-vasile/mimetype/internal/json
+github.com/gabriel-vasile/mimetype/internal/magic
+# github.com/go-playground/locales v0.14.1
+## explicit; go 1.17
+github.com/go-playground/locales
+github.com/go-playground/locales/currency
+github.com/go-playground/locales/en
+# github.com/go-playground/universal-translator v0.18.1
+## explicit; go 1.18
+github.com/go-playground/universal-translator
+# github.com/go-playground/validator/v10 v10.20.0
+## explicit; go 1.18
+github.com/go-playground/validator/v10
+github.com/go-playground/validator/v10/translations/en
 # github.com/google/uuid v1.6.0
 ## explicit
 github.com/google/uuid
@@ -46,12 +64,26 @@ github.com/jackc/puddle/v2/internal/genstack
 ## explicit; go 1.10
 github.com/jmoiron/sqlx
 github.com/jmoiron/sqlx/reflectx
-# golang.org/x/crypto v0.17.0
+# github.com/leodido/go-urn v1.4.0
 ## explicit; go 1.18
+github.com/leodido/go-urn
+github.com/leodido/go-urn/scim/schema
+# golang.org/x/crypto v0.19.0
+## explicit; go 1.18
+golang.org/x/crypto/bcrypt
+golang.org/x/crypto/blowfish
 golang.org/x/crypto/pbkdf2
+golang.org/x/crypto/sha3
+# golang.org/x/net v0.21.0
+## explicit; go 1.18
+golang.org/x/net/html
+golang.org/x/net/html/atom
 # golang.org/x/sync v0.1.0
 ## explicit
 golang.org/x/sync/semaphore
+# golang.org/x/sys v0.17.0
+## explicit; go 1.18
+golang.org/x/sys/cpu
 # golang.org/x/text v0.14.0
 ## explicit; go 1.18
 golang.org/x/text/cases
