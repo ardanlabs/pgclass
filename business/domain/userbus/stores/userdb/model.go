@@ -78,3 +78,17 @@ func toBusUser(db user) (userbus.User, error) {
 
 	return bus, nil
 }
+
+func toBusUsers(dbs []user) ([]userbus.User, error) {
+	bus := make([]userbus.User, len(dbs))
+
+	for i, db := range dbs {
+		var err error
+		bus[i], err = toBusUser(db)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return bus, nil
+}
