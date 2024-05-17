@@ -136,6 +136,36 @@ func query(busDomain dbtest.BusDomain, sd unitest.SeedData) []unitest.Table {
 				return cmp.Diff(gotResp, expResp)
 			},
 		},
+		{
+			Name:    "byid",
+			ExpResp: sd.Users[0].User,
+			ExcFunc: func(ctx context.Context) any {
+				resp, err := busDomain.User.QueryByID(ctx, sd.Users[0].ID)
+				if err != nil {
+					return err
+				}
+
+				return resp
+			},
+			CmpFunc: func(got any, exp any) string {
+				gotResp, exists := got.(userbus.User)
+				if !exists {
+					return "error occurred"
+				}
+
+				expResp := exp.(userbus.User)
+
+				if gotResp.DateCreated.Format(time.RFC3339) == expResp.DateCreated.Format(time.RFC3339) {
+					expResp.DateCreated = gotResp.DateCreated
+				}
+
+				if gotResp.DateUpdated.Format(time.RFC3339) == expResp.DateUpdated.Format(time.RFC3339) {
+					expResp.DateUpdated = gotResp.DateUpdated
+				}
+
+				return cmp.Diff(gotResp, expResp)
+			},
+		},
 	}
 
 	return table
