@@ -14,6 +14,10 @@ curl-test:
 		"value": "HELLO" \
 	}'
 
+curl-query:
+	curl -il -X GET http://localhost:3000/users?page=1&row=10
+
+
 # ==============================================================================
 # Define dependencies
 
